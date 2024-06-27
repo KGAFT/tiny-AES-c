@@ -3,14 +3,13 @@
 
 This is a small and portable implementation of the AES [ECB](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#Electronic_Codebook_.28ECB.29), [CTR](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#Counter_.28CTR.29) and [CBC](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#Cipher_Block_Chaining_.28CBC.29) encryption algorithms written in C.
 
-You can override the default key-size of 128 bit with 192 or 256 bit by defining the symbols AES192 or AES256 in [`aes.h`](https://github.com/kokke/tiny-AES-c/blob/master/aes.h).
 
 The API is very simple and looks like this (I am using C99 `<stdint.h>`-style annotated types):
 
 ```C
 /* Initialize context calling one of: */
-void AES_init_ctx(struct AES_ctx* ctx, const uint8_t* key);
-void AES_init_ctx_iv(struct AES_ctx* ctx, const uint8_t* key, const uint8_t* iv);
+void AES_init_ctx(struct AES_ctx* ctx, const uint8_t* key, uint8_t keyLength);
+void AES_init_ctx_iv(struct AES_ctx* ctx, const uint8_t* key, const uint8_t* iv, uint8_t keyLength);
 
 /* ... or reset IV at random point: */
 void AES_ctx_set_iv(struct AES_ctx* ctx, const uint8_t* iv);
