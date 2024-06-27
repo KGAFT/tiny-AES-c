@@ -1,1 +1,0 @@
-/usr/bin/gcc -g "CMakeFiles/tiny-aes-test.dir/test.c.o" -o tiny-aes-test  libtiny-aes.a
