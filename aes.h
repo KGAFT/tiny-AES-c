@@ -11,25 +11,18 @@
 // ECB enables the basic ECB 16-byte block algorithm. All can be enabled simultaneously.
 
 // The #ifndef-guard allows it to be configured before #include'ing or at compile time.
-#ifndef CBC
-  #define CBC 1
-#endif
 
-#ifndef ECB
-  #define ECB 1
-#endif
+#define CBC 1
+#define ECB 1
+#define CTR 1
 
-#ifndef CTR
-  #define CTR 1
-#endif
-
-
-#define AES128 1
+//#define AES128 1
 //#define AES192 1
 //#define AES256 1
 
 #define AES_BLOCKLEN 16 // Block length in bytes - AES is 128b block only
 
+/*
 #if defined(AES256) && (AES256 == 1)
     #define AES_KEYLEN 32
     #define AES_keyExpSize 240
@@ -40,18 +33,20 @@
     #define AES_KEYLEN 16   // Key length in bytes
     #define AES_keyExpSize 176
 #endif
-
+*/
 struct AES_ctx
 {
-  uint8_t RoundKey[AES_keyExpSize];
+    uint8_t RoundKey[240];
 #if (defined(CBC) && (CBC == 1)) || (defined(CTR) && (CTR == 1))
   uint8_t Iv[AES_BLOCKLEN];
 #endif
+  uint8_t Nr;
+  uint8_t Nk;
 };
 
-void AES_init_ctx(struct AES_ctx* ctx, const uint8_t* key);
+void AES_init_ctx(struct AES_ctx *ctx, const uint8_t *key, uint8_t keyLength);
 #if (defined(CBC) && (CBC == 1)) || (defined(CTR) && (CTR == 1))
-void AES_init_ctx_iv(struct AES_ctx* ctx, const uint8_t* key, const uint8_t* iv);
+void AES_init_ctx_iv(struct AES_ctx *ctx, const uint8_t *key, const uint8_t *iv, uint8_t keyLength);
 void AES_ctx_set_iv(struct AES_ctx* ctx, const uint8_t* iv);
 #endif
 

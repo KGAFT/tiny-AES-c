@@ -15,3 +15,7 @@ target_include_directories(${PROJECT_NAME}
     INTERFACE
         ${CMAKE_CURRENT_LIST_DIR}
 )
+
+add_executable(tiny-aes-test test.c)
+
+target_link_libraries(tiny-aes-test PRIVATE tiny-aes)

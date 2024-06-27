@@ -16,14 +16,6 @@ class TinyAesCConan(ConanFile):
     exports = ["unlicense.txt"]
 
     _options_dict = {
-        # enable AES128
-        "AES128": [True, False],
-
-        # enable AES192
-        "AES192": [True, False],
-
-        # enable AES256
-        "AES256": [True, False],
 
         # enable AES encryption in CBC-mode of operation
         "CBC": [True, False],
@@ -38,9 +30,7 @@ class TinyAesCConan(ConanFile):
     options = _options_dict
 
     default_options = {
-        "AES128": True,
-        "AES192": False,
-        "AES256": False,
+
         "CBC": True,
         "ECB": True,
         "CTR": True
@@ -49,9 +39,6 @@ class TinyAesCConan(ConanFile):
     def configure(self):
         if not self.options.CBC and not self.options.ECB and not self.options.CTR:
             raise ConanException("Need to at least specify one of CBC, ECB or CTR modes")
-
-        if not self.options.AES128 and not self.options.AES192 and not self.options.AES256:
-            raise ConanException("Need to at least specify one of AES{128, 192, 256} modes")
 
     def build(self):
         cmake = CMake(self)
